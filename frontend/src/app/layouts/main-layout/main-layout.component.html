@@ -1,0 +1,42 @@
+<div class="min-h-screen bg-[linear-gradient(90deg,#f3f1ff_0, #f8fafc_4%, #f8fafc_96%, #f3f1ff_100%)] text-slate-900">
+  <header class="border-b border-slate-200 bg-white/90 backdrop-blur">
+    <div class="mx-auto flex max-w-[1180px] items-center justify-between px-8 py-6">
+      <a routerLink="/" class="text-[2.1rem] font-black tracking-[-0.04em] text-slate-900">KariyerOS</a>
+
+      <nav class="hidden items-center gap-10 text-[1rem] font-medium text-slate-700 lg:flex">
+        @for (item of navigationItems; track item.fragment) {
+          <a
+            [routerLink]="['/']"
+            [fragment]="item.fragment"
+            class="transition hover:text-slate-950"
+          >
+            {{ item.label }}
+          </a>
+        }
+      </nav>
+
+      <div class="flex items-center gap-5">
+        <a routerLink="/auth" class="text-base font-semibold text-slate-900 transition hover:text-sky-700">
+          Giris Yap
+        </a>
+        <a
+          routerLink="/dashboard"
+          class="rounded-2xl bg-[#1e9dc3] px-7 py-3 text-base font-semibold text-white shadow-[0_12px_30px_rgba(30,157,195,0.24)] transition hover:bg-[#188aac]"
+        >
+          Kayit Ol
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <router-outlet />
+  </main>
+
+  <footer class="border-t border-slate-200 bg-white/70">
+    <div class="mx-auto flex max-w-[1180px] flex-col gap-3 px-8 py-8 text-sm text-slate-500 md:flex-row md:items-center md:justify-between">
+      <p>AI destekli kariyer platformu icin sade ve genisletilebilir landing page.</p>
+      <p>KariyerOS</p>
+    </div>
+  </footer>
+</div>
