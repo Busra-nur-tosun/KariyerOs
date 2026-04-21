@@ -1,6 +1,6 @@
+using Application.Common.Interfaces;
 using Infrastructure.Authentication;
-using Infrastructure.Persistence;
-using Microsoft.EntityFrameworkCore;
+using Infrastructure.Common;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
@@ -15,18 +15,6 @@ public static class DependencyInjection
         this IServiceCollection services,
         IConfiguration configuration)
     {
-        // Connection string bulunamazsa uygulama erken fail eder.
-        // Bu davranis production'da sessiz yanlis konfigurasyonu engeller.
-        var connectionString = configuration.GetConnectionString("DefaultConnection")
-            ?? throw new InvalidOperationException("Connection string 'DefaultConnection' is missing.");
-
-        // AppDbContext uygulama boyunca scoped lifetime ile kullanilir.
-        // Her request icin ayri context olusmasi EF Core'un varsayilan ve guvenli kullanimidir.
-        services.AddDbContext<AppDbContext>(options =>
-        {
-            options.UseNpgsql(connectionString);
-        });
-
         services
             // JWT options simdilik sadece konfigurasyon olarak hazir.
             // Token uretimi ileride eklense bile ayarlar merkezi olarak burada okunacak.
@@ -35,6 +23,12 @@ public static class DependencyInjection
         // IOptions wrapper'ina bagimli kalmamak icin sade JwtOptions erisimi de aciliyor.
         services.AddSingleton(serviceProvider =>
             serviceProvider.GetRequiredService<IOptions<JwtOptions>>().Value);
+
+        services.AddSingleton<IAuthOptions, AuthOptionsAccessor>();
+        services.AddSingleton<IDateTimeProvider, SystemDateTimeProvider>();
+        services.AddScoped<IPasswordHasher, PasswordHasherAdapter>();
+        services.AddScoped<IRefreshTokenGenerator, RefreshTokenGenerator>();
+        services.AddScoped<ITokenService, JwtTokenService>();
 
         return services;
     }

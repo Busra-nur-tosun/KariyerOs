@@ -3,7 +3,7 @@
     <div class="mx-auto flex max-w-[1180px] items-center justify-between px-8 py-6">
       <a routerLink="/" class="text-[2.1rem] font-black tracking-[-0.04em] text-slate-900">KariyerOS</a>
 
-      <nav class="hidden items-center gap-10 text-[1rem] font-medium text-slate-700 lg:flex">
+      <nav class="hidden items-center gap-10 text-[1rem] font-medium text-slate-700 lg:flex" aria-label="Birincil gezinti">
         @for (item of navigationItems; track item.fragment) {
           <a
             [routerLink]="['/']"
@@ -16,15 +16,31 @@
       </nav>
 
       <div class="flex items-center gap-5">
-        <a routerLink="/auth" class="text-base font-semibold text-slate-900 transition hover:text-sky-700">
-          Giris Yap
-        </a>
-        <a
-          routerLink="/dashboard"
-          class="rounded-2xl bg-[#1e9dc3] px-7 py-3 text-base font-semibold text-white shadow-[0_12px_30px_rgba(30,157,195,0.24)] transition hover:bg-[#188aac]"
-        >
-          Kayit Ol
-        </a>
+        @if (isAuthenticated() && currentUser(); as user) {
+          <a routerLink="/dashboard" class="text-base font-semibold text-slate-900 transition hover:text-sky-700">
+            Panel
+          </a>
+          <div class="hidden rounded-2xl border border-slate-200 bg-white px-4 py-3 text-sm font-medium text-slate-600 md:block">
+            {{ user.firstName }} {{ user.lastName }}
+          </div>
+          <button
+            type="button"
+            (click)="logout()"
+            class="rounded-2xl bg-[#1e9dc3] px-7 py-3 text-base font-semibold text-white shadow-[0_12px_30px_rgba(30,157,195,0.24)] transition hover:bg-[#188aac]"
+          >
+            Cikis Yap
+          </button>
+        } @else {
+          <a routerLink="/login" class="text-base font-semibold text-slate-900 transition hover:text-sky-700">
+            Giriş Yap
+          </a>
+          <a
+            routerLink="/register"
+            class="rounded-2xl bg-[#1e9dc3] px-7 py-3 text-base font-semibold text-white shadow-[0_12px_30px_rgba(30,157,195,0.24)] transition hover:bg-[#188aac]"
+          >
+            Kayıt Ol
+          </a>
+        }
       </div>
     </div>
   </header>

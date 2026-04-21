@@ -1,0 +1,115 @@
+<section class="mx-auto grid min-h-[calc(100vh-96px)] max-w-[1180px] items-center gap-12 px-6 pb-14 pt-6 lg:grid-cols-[1.02fr_0.98fr]">
+  <div class="hidden lg:block">
+    <div class="max-w-[520px]">
+      <p class="inline-flex rounded-full border border-white/60 bg-white/60 px-4 py-2 text-sm font-semibold text-[#3153db] shadow-[0_14px_30px_rgba(49,83,219,0.08)]">
+        KariyerOS hesabına erişin
+      </p>
+      <h1 class="mt-8 text-[4rem] font-extrabold leading-[0.94] tracking-[-0.055em] text-[#16213d]">
+        Kariyer yolculuğunu tek merkezden yönet.
+      </h1>
+      <p class="mt-8 max-w-[480px] text-lg leading-9 text-[#6b7a93]">
+        CV optimizasyonu, skill gap analizi, mülakat hazırlığı ve kariyer kararlarını aynı hesabında toplu şekilde yönet.
+      </p>
+    </div>
+
+    <div class="mt-12 rounded-[2rem] border border-white/70 bg-white/70 p-6 shadow-[0_24px_70px_rgba(44,74,126,0.12)] backdrop-blur">
+      <div class="flex items-center justify-between">
+        <div>
+          <p class="text-sm font-semibold text-[#3153db]">Canlı AI destek akışı</p>
+          <p class="mt-2 text-2xl font-bold tracking-[-0.04em] text-[#16213d]">Aday kontrol paneli</p>
+        </div>
+        <div class="rounded-2xl bg-[#edf4ff] px-4 py-3 text-sm font-semibold text-[#3153db]">88% uyum</div>
+      </div>
+
+      <div class="mt-8 grid gap-4 sm:grid-cols-3">
+        <article class="rounded-[1.5rem] bg-[#f8fbff] p-4">
+          <div class="text-xs font-semibold uppercase tracking-[0.18em] text-[#6b7a93]">CV</div>
+          <div class="mt-3 text-3xl font-black tracking-[-0.05em] text-[#16213d]">12</div>
+          <p class="mt-2 text-sm leading-6 text-[#6b7a93]">İlana göre optimize edilen versiyon</p>
+        </article>
+        <article class="rounded-[1.5rem] bg-[#f8fbff] p-4">
+          <div class="text-xs font-semibold uppercase tracking-[0.18em] text-[#6b7a93]">Mülakat</div>
+          <div class="mt-3 text-3xl font-black tracking-[-0.05em] text-[#16213d]">24</div>
+          <p class="mt-2 text-sm leading-6 text-[#6b7a93]">AI tarafından hazırlanan soru</p>
+        </article>
+        <article class="rounded-[1.5rem] bg-[#f8fbff] p-4">
+          <div class="text-xs font-semibold uppercase tracking-[0.18em] text-[#6b7a93]">Pazar</div>
+          <div class="mt-3 text-3xl font-black tracking-[-0.05em] text-[#16213d]">TR</div>
+          <p class="mt-2 text-sm leading-6 text-[#6b7a93]">Yerel kariyer veri bağlamı</p>
+        </article>
+      </div>
+    </div>
+  </div>
+
+  <div class="mx-auto w-full max-w-[520px]">
+    <div class="rounded-[2rem] border border-white/75 bg-white/85 p-8 shadow-[0_28px_80px_rgba(44,74,126,0.16)] backdrop-blur">
+      <div class="text-center">
+        <h1 class="text-[2.5rem] font-extrabold tracking-[-0.06em] text-[#16213d] lg:hidden">KariyerOS</h1>
+        <p class="text-sm font-semibold uppercase tracking-[0.24em] text-[#3153db]">Giriş Yap</p>
+        <h2 class="mt-3 text-[2.2rem] font-extrabold tracking-[-0.05em] text-[#16213d]">Hesabına geri dön</h2>
+        <p class="mt-3 text-base leading-7 text-[#6b7a93]">KariyerOS hesabına giriş yap ve AI destekli kariyer araçlarını kaldığın yerden kullan.</p>
+      </div>
+
+      <form class="mt-8 space-y-5" [formGroup]="form" (ngSubmit)="submit()">
+        <app-google-auth-button [href]="googleLoginUrl" label="Google ile devam et" />
+
+        <div class="flex items-center gap-4">
+          <span class="h-px flex-1 bg-[#dbe4f2]"></span>
+          <span class="text-xs font-semibold uppercase tracking-[0.24em] text-[#8a97ad]">veya</span>
+          <span class="h-px flex-1 bg-[#dbe4f2]"></span>
+        </div>
+
+        <div>
+          <label class="mb-2 block text-sm font-semibold text-[#243452]" for="email">E-posta Adresi *</label>
+          <input
+            id="email"
+            type="email"
+            formControlName="email"
+            autocomplete="email"
+            class="w-full rounded-2xl border border-[#d8e1f1] bg-white px-5 py-4 text-base text-[#16213d] outline-none transition placeholder:text-[#97a5bb] focus:border-[#3153db] focus:ring-4 focus:ring-[#3153db]/12"
+            placeholder="ornek@mail.com"
+            aria-describedby="email-error"
+          />
+          @if (fieldError('email'); as error) {
+            <p id="email-error" class="mt-2 text-sm font-medium text-rose-600">{{ error }}</p>
+          }
+        </div>
+
+        <div>
+          <label class="mb-2 block text-sm font-semibold text-[#243452]" for="password">Şifre *</label>
+          <input
+            id="password"
+            type="password"
+            formControlName="password"
+            autocomplete="current-password"
+            class="w-full rounded-2xl border border-[#d8e1f1] bg-white px-5 py-4 text-base text-[#16213d] outline-none transition placeholder:text-[#97a5bb] focus:border-[#3153db] focus:ring-4 focus:ring-[#3153db]/12"
+            placeholder="Şifrenizi girin"
+            aria-describedby="password-error"
+          />
+          @if (fieldError('password'); as error) {
+            <p id="password-error" class="mt-2 text-sm font-medium text-rose-600">{{ error }}</p>
+          }
+        </div>
+
+        @if (submitError(); as error) {
+          <div class="rounded-2xl border border-rose-200 bg-rose-50 px-4 py-3 text-sm font-medium text-rose-700">
+            {{ error }}
+          </div>
+        }
+
+        <button
+          type="submit"
+          class="inline-flex w-full items-center justify-center rounded-2xl bg-[#2d49ba] px-5 py-4 text-base font-semibold text-white shadow-[0_20px_40px_rgba(45,73,186,0.25)] transition hover:bg-[#243fa8] disabled:cursor-not-allowed disabled:opacity-70"
+          [disabled]="isSubmitting()"
+        >
+          {{ isSubmitting() ? 'Giriş yapılıyor...' : 'Giriş Yap' }}
+        </button>
+      </form>
+
+      <p class="mt-6 text-center text-sm leading-7 text-[#6b7a93]">
+        Hesabın yok mu?
+        <a routerLink="/register" class="font-semibold text-[#3153db] transition hover:text-[#1d3fca]">Kayıt Ol</a>
+      </p>
+    </div>
+  </div>
+</section>
